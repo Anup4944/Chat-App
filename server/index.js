@@ -29,9 +29,20 @@ io.on("connection", (socket) => {
       user: "Admin",
       message: `${users[socket.id]} has joined`,
     });
+
+    socket.emit("Welcome", {
+      user: "Admin",
+      message: `Welcome to the chat,${users[socket.id]}`,
+    });
   });
 
-  socket.emit("Welcome", { user: "Admin", message: "Welcome to the chat" });
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("leave", {
+      user: "Admin",
+      message: `${users[socket.id]} has left`,
+    });
+    console.log(`User left`);
+  });
 });
 
 server.listen(PORT, () => {
