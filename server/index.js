@@ -16,7 +16,7 @@ const server = http.createServer(app);
 
 const io = socketIO(server);
 
-io.on("Connection", () => {
+io.on("connect", () => {
   console.log("New connection");
 });
 
