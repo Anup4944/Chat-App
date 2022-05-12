@@ -36,6 +36,10 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("message", ({ message, id }) => {
+    io.emit("sendMessage", { user: users[id], message, id });
+  });
+
   socket.on("disconnect", () => {
     socket.broadcast.emit("leave", {
       user: "Admin",
